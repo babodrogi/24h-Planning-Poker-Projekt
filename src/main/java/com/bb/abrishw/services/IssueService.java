@@ -5,6 +5,8 @@ import com.bb.abrishw.repositories.IssueRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class IssueService {
 
@@ -18,4 +20,8 @@ public class IssueService {
   public void save(Issue issue){
     issueRepository.save(issue);
   }
+
+  public List<Issue> findAll(){
+   return issueRepository.findAll();
+  };
 }

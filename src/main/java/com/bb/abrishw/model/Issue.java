@@ -31,4 +31,12 @@ public class Issue {
     this.title = title;
     this.description = description;
   }
+
+  public double calculateAverageScore(){
+    double avg;
+    int sum;
+    sum = scores.stream().mapToInt(score -> score.getValue()).sum();
+    avg = (double) sum/scores.size();
+    return avg;
+  }
 }

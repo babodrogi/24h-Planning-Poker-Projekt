@@ -34,6 +34,8 @@ public class AbrisHwApplication  implements CommandLineRunner {
     User user1 = new User("user1","password1");
     Issue issue1 = new Issue("catfeeding","Feed Dat Cat");
     Score score = new Score(user1,issue1,13);
+    Score score2 = new Score(user1,issue1,8);
+
 
     userService.save(user1);
     issueService.save(issue1);
@@ -42,10 +44,18 @@ public class AbrisHwApplication  implements CommandLineRunner {
     user1.getScoresGiven().add(score);
     user1.getIssuesVotedFor().add(issue1);
     issue1.getScores().add(score);
+    issue1.getScores().add(score2);
     issue1.getVoters().add(user1);
 
     userService.save(user1);
     issueService.save(issue1);
 
+    Issue issue2 = new Issue("something","Soething Something");
+    Score score3 = new Score(user1,issue2,1);
+    Score score4 = new Score(user1,issue2,5);
+    issue2.getScores().add(score3);
+    issue2.getScores().add(score4);
+
+    issueService.save(issue2);
   }
 }

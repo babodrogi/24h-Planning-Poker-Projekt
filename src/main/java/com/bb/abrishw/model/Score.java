@@ -26,4 +26,9 @@ public class Score {
     this.issue = issue;
     this.value = value;
   }
+
+  public Score(Issue issue, int value) {
+    this.issue = issue;
+    this.value = value;
+  }
 }

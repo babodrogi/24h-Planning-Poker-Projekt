@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th=http://www.thymeleaf.org>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link type="text/css" rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+<table>
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Descrption</th>
+            <th>Average Score</th>
+
+        </tr>
+    </thead>
+    <tbody th:each="issue : ${issues}">
+        <tr>
+            <td th:text="${issue.title}"></td>
+            <td th:text="${issue.description}"></td>
+            <td th:text="${issue.calculateAverageScore()}"></td>
+        </tr>
+    </tbody>
+</table>
+
+</body>
+</html>
