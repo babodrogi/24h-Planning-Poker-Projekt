@@ -24,4 +24,8 @@ public class IssueService {
   public List<Issue> findAll(){
    return issueRepository.findAll();
   };
+
+  public List<Issue> findScorableIssuesForSpecificUser(int userId){
+    return issueRepository.findScorableIssuesForSpecificUser(userId);
+  }
 }
