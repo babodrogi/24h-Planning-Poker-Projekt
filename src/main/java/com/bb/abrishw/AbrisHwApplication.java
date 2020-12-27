@@ -32,12 +32,14 @@ public class AbrisHwApplication  implements CommandLineRunner {
   @Override
   public void run(String... args) throws Exception {
     User user1 = new User("user1","password1");
+    User user2 = new User("user2","password2");
     Issue issue1 = new Issue("catfeeding","Feed Dat Cat");
     Score score = new Score(user1,issue1,13);
     Score score2 = new Score(user1,issue1,8);
 
 
     userService.save(user1);
+    userService.save(user2);
     issueService.save(issue1);
 
 
