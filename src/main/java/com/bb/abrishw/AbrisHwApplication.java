@@ -31,6 +31,7 @@ public class AbrisHwApplication  implements CommandLineRunner {
 
   @Override
   public void run(String... args) throws Exception {
+
     User user1 = new User("user1","password1");
     User user2 = new User("user2","password2");
     Issue issue1 = new Issue("catfeeding","Feed Dat Cat");
@@ -53,11 +54,22 @@ public class AbrisHwApplication  implements CommandLineRunner {
     issueService.save(issue1);
 
     Issue issue2 = new Issue("something","Soething Something");
-    Score score3 = new Score(user1,issue2,1);
+    Score score3 = new Score(user2,issue2,1);
     Score score4 = new Score(user1,issue2,5);
+    user2.getIssuesVotedFor().add(issue2);
+
     issue2.getScores().add(score3);
     issue2.getScores().add(score4);
+    issue2.getVoters().add(user2);
 
     issueService.save(issue2);
+    userService.save(user2);
+
+    Issue issue3 = new Issue("YOO","ZO ot adofdsfjk");
+    Issue issue4 = new Issue("valami","valami valami");
+
+    issueService.save(issue3);
+    issueService.save(issue4);
+
   }
 }

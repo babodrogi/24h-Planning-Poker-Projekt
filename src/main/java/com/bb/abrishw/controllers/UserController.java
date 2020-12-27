@@ -1,12 +1,13 @@
 package com.bb.abrishw.controllers;
 
+import com.bb.abrishw.model.User;
+import com.bb.abrishw.dtos.UserDto;
 import com.bb.abrishw.services.UserService;
+import com.bb.abrishw.utilities.JwtTokenUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.CookieValue;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
@@ -16,9 +17,12 @@ public class UserController {
 
 
   private UserService userService;
+  private JwtTokenUtil jwtTokenUtil;
 
-  public UserController(UserService userService) {
+  @Autowired
+  public UserController(UserService userService,JwtTokenUtil jwtTokenUtil) {
     this.userService = userService;
+    this.jwtTokenUtil = jwtTokenUtil;
   }
 
   @GetMapping("/login")
@@ -28,17 +32,20 @@ public class UserController {
   }
 
   @PostMapping("/login")
-    public String login(String username, String password, HttpServletResponse response){
-
-    if(userService.findByUsername(username) == null){
+    public String login(@ModelAttribute()UserDto userDto, HttpServletResponse response){
+    User user = userService.findByUsername(userDto.getUsername());
+    if(user == null){
       String errorMessage = "User Doesn't Exist";
       return "redirect:/login?errorMessage=" + errorMessage;
-    }else if(!userService.findByUsername(username).getPassword().equals(password)){
+    }else if(!user.getPassword().equals(userDto.getPassword())){
       String errorMessage = "Wrong Password";
       return "redirect:/login?errorMessage=" + errorMessage;
     }else{
+
+      //generate Token
+      String token = jwtTokenUtil.generateToken(user);
       //setCookie
-      Cookie cookie = new Cookie("username",username);
+      Cookie cookie = new Cookie("authToken",token);
       cookie.setHttpOnly(true);
       cookie.setMaxAge(60 * 60);
       cookie.setPath("/");
@@ -50,7 +57,7 @@ public class UserController {
 
   @GetMapping("/logout")
   public String logout(HttpServletResponse response){
-    Cookie cookie = new Cookie("username", null);
+    Cookie cookie = new Cookie("authToken", null);
     cookie.setMaxAge(0);
     cookie.setHttpOnly(true);
     cookie.setPath("/");

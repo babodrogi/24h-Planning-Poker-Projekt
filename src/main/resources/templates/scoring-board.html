@@ -24,9 +24,10 @@
         <td th:text="${issue.description}"></td>
         <td>
             <form action="/add-score" method="post">
-                <input type="hidden" name="issue_id" th:value="${issue.id}">
-                <input name="value" type="number">
-                <button type="submit">
+                <input type="hidden" name="userId"  th:value="${userId}">
+                <input type="hidden" name="issueId" th:value="${issue.id}">
+                <input name="scoreValue" type="number">
+                <button type="submit"></button>
             </form>
         </td>
     </tr>

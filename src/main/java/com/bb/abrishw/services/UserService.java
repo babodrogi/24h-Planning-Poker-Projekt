@@ -1,5 +1,6 @@
 package com.bb.abrishw.services;
 
+import com.bb.abrishw.model.Issue;
 import com.bb.abrishw.model.User;
 import com.bb.abrishw.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,11 @@ public class UserService {
 
   public User findByUsername(String username){
     return userRepository.findByUsername(username);
+
+  }
+
+  public User findById(int userId){
+    return userRepository.findById(userId).orElse(null);
   }
 }
 
