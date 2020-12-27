@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -18,16 +19,16 @@ public class Issue {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private int id;
   private String title;
-  private String Descrption;
+  private String description;
   @ManyToMany(mappedBy = "issuesVotedFor")
   private List<User> voters;
-  @OneToMany(mappedBy = "issue")
+  @OneToMany(mappedBy = "issue",cascade = CascadeType.ALL)
   private List<Score> scores;
 
-  public Issue(String title, String descrption, List<User> voters, List<Score> scores) {
+  public Issue(String title, String description) {
+    voters = new ArrayList<>();
+    scores = new ArrayList<>();
     this.title = title;
-    Descrption = descrption;
-    this.voters = voters;
-    this.scores = scores;
+    this.description = description;
   }
 }

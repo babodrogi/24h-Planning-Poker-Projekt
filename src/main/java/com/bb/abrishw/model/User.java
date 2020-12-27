@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -27,10 +28,10 @@ public class User {
   @OneToMany(mappedBy = "user")
   private List<Score> scoresGiven;
 
-  public User(String username, String password, List<Issue> issuesVotedFor, List<Score> scoresGiven) {
+  public User(String username, String password){
+    issuesVotedFor = new ArrayList<>();
+    scoresGiven = new ArrayList<>();
     this.username = username;
     this.password = password;
-    this.issuesVotedFor = issuesVotedFor;
-    this.scoresGiven = scoresGiven;
   }
 }
