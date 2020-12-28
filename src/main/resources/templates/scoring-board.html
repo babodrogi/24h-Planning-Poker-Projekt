@@ -6,9 +6,10 @@
     <link type="text/css" rel="stylesheet" href="/style.css">
 </head>
 <body>
-<a href="/logout">logout</a>
+<a href="/logout">Logout </a><a href="/">Issue List</a>
+<p th:text="| Logged in as: ${username}|"></p>
 
-
+<h3>Issues to be scored :</h3>
 <table>
     <thead>
     <tr>
@@ -18,7 +19,7 @@
 
     </tr>
     </thead>
-    <tbody th:each="issue : ${issues}">
+    <tbody th:each="issue : ${scorableIssues}">
     <tr>
         <td th:text="${issue.title}"></td>
         <td th:text="${issue.description}"></td>
@@ -26,13 +27,42 @@
             <form action="/add-score" method="post">
                 <input type="hidden" name="userId"  th:value="${userId}">
                 <input type="hidden" name="issueId" th:value="${issue.id}">
-                <input name="scoreValue" type="number">
-                <button type="submit"></button>
+                <select name="scoreValue">
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>5</option>
+                    <option>8</option>
+                    <option>13</option>
+                </select>
+                <button type="submit">Submit</button>
             </form>
         </td>
     </tr>
     </tbody>
 </table>
+
+<h3>Issues already scored:</h3>
+
+<table>
+    <thead>
+    <tr>
+        <th>Title</th>
+        <th>Descrption</th>
+        <th>Your Score</th>
+
+    </tr>
+    </thead>
+    <tbody th:each="issueDto : ${scoredIssues}">
+    <tr>
+        <td th:text="${issueDto.title}"></td>
+        <td th:text="${issueDto.description}"></td>
+        <td th:text="${issueDto.scoredValue}"></td>
+    </tr>
+    </tbody>
+</table>
+
+
 
 </body>
 </html>

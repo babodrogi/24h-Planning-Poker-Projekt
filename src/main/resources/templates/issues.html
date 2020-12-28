@@ -6,15 +6,16 @@
     <link type="text/css" rel="stylesheet" href="/style.css">
 </head>
 <body>
-<a href="/logout">logout</a>
-<p th:text="${id}"></p>
+<a href="/logout">Logout </a><a href="/scoring">Scoring Board</a>
+<p th:text="| Logged in as: ${username}|"></p>
 
 <table>
     <thead>
         <tr>
             <th>Title</th>
-            <th>Descrption</th>
+            <th>Description</th>
             <th>Average Score</th>
+            <th>User Who Aready Voted</th>
 
         </tr>
     </thead>
@@ -23,6 +24,7 @@
             <td th:text="${issue.title}"></td>
             <td th:text="${issue.description}"></td>
             <td th:text="${issue.calculateAverageScore()}"></td>
+            <td th:text="${issue.getVoterNamesAsString()}"></td>
         </tr>
     </tbody>
 </table>

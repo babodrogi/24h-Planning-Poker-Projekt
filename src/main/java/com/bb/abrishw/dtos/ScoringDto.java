@@ -9,5 +9,6 @@ public class ScoringDto {
 
   private int issueId;
   private int userId;
-  private int scoreValue;
+  private String scoreValue;
+
 }

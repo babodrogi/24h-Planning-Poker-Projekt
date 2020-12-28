@@ -8,13 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 
 @Controller
 public class UserController {
-
 
   private UserService userService;
   private JwtTokenUtil jwtTokenUtil;
@@ -41,27 +38,14 @@ public class UserController {
       String errorMessage = "Wrong Password";
       return "redirect:/login?errorMessage=" + errorMessage;
     }else{
-
-      //generate Token
-      String token = jwtTokenUtil.generateToken(user);
-      //setCookie
-      Cookie cookie = new Cookie("authToken",token);
-      cookie.setHttpOnly(true);
-      cookie.setMaxAge(60 * 60);
-      cookie.setPath("/");
-      response.addCookie(cookie);
-
+      userService.setCookieForUser(jwtTokenUtil.generateToken(user),response);
       return "redirect:/";
     }
   }
 
   @GetMapping("/logout")
   public String logout(HttpServletResponse response){
-    Cookie cookie = new Cookie("authToken", null);
-    cookie.setMaxAge(0);
-    cookie.setHttpOnly(true);
-    cookie.setPath("/");
-    response.addCookie(cookie);
+    userService.logoutUser(response);
     return "redirect:/login";
   }
 }
