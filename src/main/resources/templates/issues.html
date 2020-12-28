@@ -23,7 +23,7 @@
         <tr>
             <td th:text="${issue.title}"></td>
             <td th:text="${issue.description}"></td>
-            <td th:text="${issue.calculateAverageScore()}"></td>
+            <td th:text="${issue.calculateAverageScore() != 0} ? ${issue.calculateAverageScore()} :'No scores yet' "></td>
             <td th:text="${issue.getVoterNamesAsString()}"></td>
         </tr>
     </tbody>

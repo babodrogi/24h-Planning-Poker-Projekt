@@ -32,12 +32,15 @@ public class Issue {
   }
 
   public double calculateAverageScore(){
-    double avg;
+    double avg = 0;
     int sum;
     sum = scores.stream()
         .mapToInt(score -> score.getValue())
         .sum();
     avg = (double) sum/scores.size();
+    if(Double.isNaN(avg)){
+      avg = 0;
+    }
     return avg;
   }
 

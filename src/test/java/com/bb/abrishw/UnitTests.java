@@ -6,7 +6,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import com.bb.abrishw.model.Issue;
 import com.bb.abrishw.model.Score;
 import com.bb.abrishw.model.User;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 
